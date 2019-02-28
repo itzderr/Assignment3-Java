@@ -99,8 +99,13 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
+        double totalFee = 0;
 
-        return false;
+        for (int i = 1; i <= this.transactionCount; i++) {
+            totalFee += fee * i;
+        }
+
+        return this.balance - totalFee > 0;
     }
 
     /**
@@ -122,8 +127,20 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
+        boolean isTransferSuccess = true;
 
-        return false;
+        if (this.balance < 5.0 || amount <= 0) {
+            isTransferSuccess = false;
+        } else if (this.balance >= 5.0 + amount) {
+            this.balance -= amount + 5.0;
+            other.balance += amount;
+         } else {
+            double transferLimit = this.balance - 5.0;
+            this.balance -= transferLimit + 5.0;
+            other.balance += transferLimit;
+        }
+
+        return isTransferSuccess;
     }
 
     /**
@@ -140,7 +157,15 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
+        String name = this.name + ", ";
+        String strBalance;
 
-        return "";
+        if (this.balance < 0) {
+            strBalance = String.format("-$%.2f", Math.abs(this.balance));
+        } else {
+            strBalance = String.format("$%.2f", this.balance);
+        }
+
+        return name + strBalance;
     }
 }
