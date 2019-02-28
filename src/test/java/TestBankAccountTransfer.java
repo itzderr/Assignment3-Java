@@ -1,3 +1,4 @@
+import ca.ciccc.BankAccount;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +10,7 @@ import java.util.Collection;
 @RunWith(Parameterized.class)
 public class TestBankAccountTransfer{
 
-    @Parameterized.Parameters(name = "{index}: @BankAccount.transfer()")
+    @Parameterized.Parameters(name = "{index}: @ca.ciccc.BankAccount.transfer()")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
                 {100, 0, 20, 20, 75, true},

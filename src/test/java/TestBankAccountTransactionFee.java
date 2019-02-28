@@ -1,3 +1,4 @@
+import ca.ciccc.BankAccount;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +9,7 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class TestBankAccountTransactionFee {
-    @Parameterized.Parameters(name = "{index}: @BankAccount.transactionFee()")
+    @Parameterized.Parameters(name = "{index}: @ca.ciccc.BankAccount.transactionFee()")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
                 {5.00, true},

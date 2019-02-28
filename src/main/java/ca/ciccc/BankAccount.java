@@ -1,3 +1,5 @@
+package ca.ciccc;
+
 /**
  * Assignment 3
  */
@@ -74,9 +76,9 @@ public class BankAccount {
      * afford all of the fees or has no money left, the balance is left as 0.0 and method returns
      * {@code false}.
      *
-     * For example, given the following BankAccount object.
+     * For example, given the following ca.ciccc.BankAccount object.
      *
-     * BankAccount savings = new BankAccount("Jimmy");
+     * ca.ciccc.BankAccount savings = new ca.ciccc.BankAccount("Jimmy");
      * savings.deposit(10.00);
      * savings.deposit(50.00);
      * savings.deposit(10.00);
@@ -103,7 +105,7 @@ public class BankAccount {
 
     /**
      * The transfer method moves money from `this` bank account to another account. The method
-     * accepts two parameters: the amount of money to transfer and the other BankAccount to accept
+     * accepts two parameters: the amount of money to transfer and the other ca.ciccc.BankAccount to accept
      * the money.
      * There is a $5.00 fee for transferring money, so this much must be deducted from the current
      * account's balance before any transfer.
@@ -133,7 +135,7 @@ public class BankAccount {
      * For example, if the same object had a balance of -17.5, your method should return
      * "Derrick, -$17.50"
      *
-     * @return string representation of BankAccount
+     * @return string representation of ca.ciccc.BankAccount
      */
     @Override
     public String toString() {
