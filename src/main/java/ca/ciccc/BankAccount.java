@@ -1,5 +1,6 @@
 package ca.ciccc;
 
+
 /**
  * Assignment 3
  */
@@ -99,8 +100,10 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
-
-        return false;
+        if(getBalance() > (fee * (fee+1) * getTransactionCount() / 2))
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -122,8 +125,20 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-
-        return false;
+        if(this.getBalance() >= amount + 5){
+            this.withdraw(amount+5);
+            other.deposit(amount);
+            return true;
+        }else{
+            if(this.getBalance() < amount + 5 && this.getBalance() > 5){
+                this.withdraw(5);
+                this.withdraw(this.getBalance());
+                other.deposit(this.getBalance());
+                return true;
+            }
+            else
+                return  false;
+        }
     }
 
     /**
@@ -140,7 +155,12 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-
-        return "";
+        String accinfo;
+        if(getBalance() > 0)
+            accinfo = String.format("%s, $%.2f",getName(),getBalance());
+        else {
+            accinfo = String.format("%s, -$%.2f",getName(),Math.abs(getBalance()));
+        }
+        return accinfo;
     }
 }
