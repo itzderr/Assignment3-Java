@@ -132,8 +132,8 @@ public class BankAccount {
         }else{
             if(this.getBalance() < amount + 5 && this.getBalance() > 5){
                 this.withdraw(5);
-                this.withdraw(this.getBalance());
                 other.deposit(this.getBalance());
+                this.withdraw(this.getBalance());
                 return true;
             }
             else
