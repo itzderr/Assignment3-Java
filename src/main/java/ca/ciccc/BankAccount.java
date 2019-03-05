@@ -99,8 +99,16 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
+        double countFee = 0;
+        if (fee>=10){
+            return false;
+        }
+        for (int num = 1; num <= this.transactionCount;num++){
+            countFee += fee*num;
+        }
+        double finalBalance = this.balance - countFee;
 
-        return false;
+        return finalBalance > 0;
     }
 
     /**
@@ -122,8 +130,24 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
+        boolean transferStatus = true;
+        double balanaceAftrFee = this.balance - 5;
+        if (this.balance < 5 || amount<=0){
+            transferStatus = false;
 
-        return false;
+
+        }
+        else if (this.balance >= 5+amount){
+            this.balance -= amount + 5;
+            other.balance+= amount;
+
+        } else {
+            this.balance -= balanaceAftrFee + 5;
+            other.balance += balanaceAftrFee;
+
+
+        }
+        return transferStatus;
     }
 
     /**
@@ -140,7 +164,14 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
+        String name = this.name+", ";
+        String balance;
+        if (this.balance<0){
+            balance = String.format("-$%.2f",Math.sqrt(Math.pow(this.balance, 2)));
+        }else
+            balance = String.format("$%.2f",this.balance);
 
-        return "";
+
+        return name + balance;
     }
 }
