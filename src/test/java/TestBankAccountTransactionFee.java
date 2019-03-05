@@ -14,7 +14,7 @@ public class TestBankAccountTransactionFee {
         return Arrays.asList(new Object[][] {
                 {5.00, true},
                 {7.00, true},
-                {20.00, false},
+                {10.00, false},
         });
     }
 
