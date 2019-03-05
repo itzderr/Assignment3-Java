@@ -11,7 +11,8 @@ public class BankAccount {
     private int transactionCount = 0;
     private String transactionText = "";
 
-    public BankAccount() { }
+    public BankAccount() {
+    }
 
     public BankAccount(double balance) {
         this.id = "test account";
@@ -51,12 +52,14 @@ public class BankAccount {
         return transactionText;
     }
 
-    public void deposit(double amount) {
+
+    public double deposit(double amount) {
         if (amount >= 0) {
             balance += amount;
             transactionText += "deposit of $" + amount + "\n";
         }
         transactionCount++;
+        return amount;
     }
 
     public void withdraw(double amount) {
@@ -93,15 +96,35 @@ public class BankAccount {
      *
      * Then the account would be deducted $10 + $20 + $30 + $40 for the four transactions, leaving
      * a final balance of $0.00. The method would return false.
-     *
+     * */
+
+    /**
      * @param fee
      * @return true if there's enough balance, otherwise false
      */
+
+
+
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
 
+        // 1. get the total fee
+
+        double feeAmount = 0;
+        for (int i = 0; i <= transactionCount; i++) {
+            feeAmount = i * fee;
+            feeAmount += feeAmount;
+        }
+
+        // 2. check if the account has enough money to pay the total fee
+        if (balance >= feeAmount) {
+            return true;
+        }
+
+        // 3. if you have, return true. Otherwise return false.
         return false;
     }
+
 
     /**
      * The transfer method moves money from `this` bank account to another account. The method
@@ -109,21 +132,51 @@ public class BankAccount {
      * the money.
      * There is a $5.00 fee for transferring money, so this much must be deducted from the current
      * account's balance before any transfer.
-     *
+     * <p>
      * If `this` account object does not have enough money to make full transfer, then transfer
      * whatever money is left after the $5.00 fee is deducted. If this account has under $5.00 or amount is 0 or less,
      * no transfer should occur and neither account's state should be modified.
-     *
+     * <p>
      * If any amount of money is transferred, return {@code true}. Otherwise {@code false}.
      *
      * @param amount
      * @param other
      * @return true if transferred any amount of money, otherwise false.
      */
+
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
-        return false;
+        // If this account has under $5.00, no transfer should occur and neither account's state should be modified.
+        if (balance >= 5) {
+
+            // There is a $5.00 fee for transferring money, so this much must be deducted from the current account's balance before any transfer.
+            balance -= 5;
+
+            //If any amount of money is transferred, return {@code true}.
+            if (balance >= amount) {
+
+                // transfer: moves money from `this` bank account to another account.
+                balance -= amount;
+                other.deposit(amount);
+                return true;
+
+                // If `this` account object does not have enough money to make full transfer,
+                // then transfer whatever money is left after the $5.00 fee is deducted.
+                // If any amount of money is transferred, return {@code true}.
+            } else if (balance < amount && balance > 0) {
+                other.deposit(balance);
+                balance -= balance;
+                return true;
+
+            } else {
+                return false;
+            }
+        } else {
+
+            //Otherwise {@code false}
+            return false;
+        }
     }
 
     /**
@@ -141,6 +194,14 @@ public class BankAccount {
     public String toString() {
         // TODO 1: Your code goes here.
 
-        return "";
+        // 1. Return "Derrick, $20.55"
+
+        if (balance >= 0) {
+
+            return String.format(this.name + ", $%.2f", this.balance);
+        } else {
+            balance *= -1;
+            return String.format(this.name + ", -$%.2f", this.balance);
+        }
     }
 }
