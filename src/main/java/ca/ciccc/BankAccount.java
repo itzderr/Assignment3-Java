@@ -127,7 +127,7 @@ public class BankAccount {
      * @return true if transferred any amount of money, otherwise false.
      */
     public boolean transfer(double amount, BankAccount other) {
-        if (balance < 5) {
+        if (balance <= 5) {
             return false;
         } else if (balance <= amount + 5){
             balance -= 5;
