@@ -134,12 +134,17 @@ public class BankAccount {
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
-        double result = balance - amount - 5;
+        double remain = balance - 5;
 
-        if(result < 0) return false;
+        if(remain < 0) return false;
 
-        balance = result;
-        other.deposit(amount);
+        if( amount > remain ) {
+          balance = 0;
+          other.deposit(remain);
+        } else {
+          balance = remain - amount;
+          other.deposit(amount);
+        }
 
         return true;
     }
