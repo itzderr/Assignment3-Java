@@ -4,6 +4,9 @@ package ca.ciccc;
  * Assignment 3
  */
 public class BankAccount {
+
+    private static final double TRANSACTION_FEE = 5.00;
+
     private String id;
     private String name;
     private double balance;
@@ -84,7 +87,7 @@ public class BankAccount {
      * savings.deposit(10.00);
      * savings.deposit(70.00);
      *
-     * savings.transactionFee(5.00);
+     * savings.c(5.00);
      *
      * The account would be deducted $5 + $10 + $15 + $20 for the four transactions, leaving a final
      * balance of $90.00. The method would return true.
@@ -99,8 +102,12 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
+        double sum = 0.0;
+        for (int i = 1; i <= transactionCount; i++) {
+            sum += fee * i;
+        }
 
-        return false;
+        return sum <= balance;
     }
 
     /**
@@ -123,7 +130,14 @@ public class BankAccount {
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
-        return false;
+        if (balance < 5) return false;
+
+        withdraw(TRANSACTION_FEE);
+        amount = Math.min(balance, amount);
+        withdraw(amount);
+        other.deposit(amount);
+
+        return true;
     }
 
     /**
@@ -140,7 +154,7 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-
-        return "";
+        String sign = balance < 0 ? "-" : "";
+        return String.format("%s, %s$%.2f", name, sign, Math.abs(balance));
     }
 }
