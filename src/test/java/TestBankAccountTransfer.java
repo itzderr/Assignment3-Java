@@ -19,6 +19,7 @@ public class TestBankAccountTransfer{
                 {50, 0, 50, 45, 0, true},
                 {100, 0, 10, 10, 85, true},
                 {3, 0, 3, 0, 3, false},
+                // {acc1Bal, acc2Bal,transAmt, expAmt, acc1Rem}
         });
     }
 
