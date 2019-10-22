@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestBankAccountTransactionFee" tests="3" skipped="0" failures="0" errors="0" timestamp="2019-10-22T02:13:48" hostname="macdeMacBook-Pro.local" time="0.006">
+  <properties/>
+  <testcase name="testTransactionFee[0: @ca.ciccc.BankAccount.transactionFee()]" classname="TestBankAccountTransactionFee" time="0.001"/>
+  <testcase name="testTransactionFee[1: @ca.ciccc.BankAccount.transactionFee()]" classname="TestBankAccountTransactionFee" time="0.001"/>
+  <testcase name="testTransactionFee[2: @ca.ciccc.BankAccount.transactionFee()]" classname="TestBankAccountTransactionFee" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestBankAccountTransfer" tests="18" skipped="0" failures="0" errors="0" timestamp="2019-10-22T02:13:49" hostname="macdeMacBook-Pro.local" time="0.025">
+  <properties/>
+  <testcase name="testTransferAccount1[0: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.001"/>
+  <testcase name="testTransferAccount2[0: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <testcase name="testTransferReturn[0: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <testcase name="testTransferAccount1[1: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <testcase name="testTransferAccount2[1: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.001"/>
+  <testcase name="testTransferReturn[1: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <testcase name="testTransferAccount1[2: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <testcase name="testTransferAccount2[2: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.004"/>
+  <testcase name="testTransferReturn[2: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.001"/>
+  <testcase name="testTransferAccount1[3: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.001"/>
+  <testcase name="testTransferAccount2[3: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <testcase name="testTransferReturn[3: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <testcase name="testTransferAccount1[4: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.001"/>
+  <testcase name="testTransferAccount2[4: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <testcase name="testTransferReturn[4: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <testcase name="testTransferAccount1[5: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <testcase name="testTransferAccount2[5: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <testcase name="testTransferReturn[5: @ca.ciccc.BankAccount.transfer()]" classname="TestBankAccountTransfer" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
