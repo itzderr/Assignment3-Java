@@ -127,6 +127,7 @@ public class BankAccount {
      * @param other
      * @return true if transferred any amount of money, otherwise false.
      */
+
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
@@ -157,4 +158,5 @@ public class BankAccount {
         String sign = balance < 0 ? "-" : "";
         return String.format("%s, %s$%.2f", name, sign, Math.abs(balance));
     }
+
 }
