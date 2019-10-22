@@ -1,9 +1,12 @@
 package ca.ciccc;
 
+import java.util.stream.IntStream;
+
 /**
  * Assignment 3
  */
 public class BankAccount {
+    private final double FEE = 5;
     private String id;
     private String name;
     private double balance;
@@ -99,8 +102,15 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
+        int totalFee = 0;
+        for (int i=1;i<=transactionCount;i++) {
+            totalFee += i * fee;
+        }
+        if (totalFee > this.balance) {
+            return false;
+        }
 
-        return false;
+        return true;
     }
 
     /**
@@ -123,7 +133,22 @@ public class BankAccount {
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
-        return false;
+        if (this.balance - FEE <= 0) {
+            return false;
+        } else {
+            if (this.balance - amount >= FEE) {
+                this.balance -= amount + FEE;
+                other.balance += amount;
+            } else {
+                if (this.balance - amount < 0) {
+                    amount = this.balance;
+                }
+                this.balance -= amount;
+                other.balance += amount - FEE;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -141,6 +166,7 @@ public class BankAccount {
     public String toString() {
         // TODO 1: Your code goes here.
 
-        return "";
+        String strBalance = this.balance > 0 ? String.format("$%.2f",this.balance) : String.format("-$%.2f",-this.balance);
+        return String.format("%s, %s", this.name, strBalance);
     }
 }
