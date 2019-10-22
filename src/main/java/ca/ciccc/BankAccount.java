@@ -1,5 +1,7 @@
 package ca.ciccc;
 
+import java.text.DecimalFormat;
+
 /**
  * Assignment 3
  */
@@ -99,8 +101,20 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
+        // I wrote this code with Wenda's help
 
-        return false;
+        // count total fee
+        double totalFee = 0;
+        for (int i = 1; i <= getTransactionCount(); i++ ){
+            totalFee += fee * i;
+        }
+        // get past transaction
+        if ((getBalance() - totalFee) < 0){
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     /**
@@ -122,8 +136,21 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-
-        return false;
+        // I wrote this code with Wenda's help
+        if ( getBalance() < 5 || amount <= 0){
+            // if this account has under $5.00 or amount is 0 or less
+            return false;
+        } else if (getBalance() < amount +5){
+            // if the amount of money to transfer is greater than this account
+            this.withdraw(5);
+            other.deposit(getBalance());
+            this.withdraw(getBalance());
+            return true;
+        } else {
+            this.withdraw(amount + 5);
+            other.deposit(amount);
+            return true;
+        }
     }
 
     /**
@@ -140,7 +167,18 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
+        // put the -sign if the balance is negative
+        String balanceStr;
+        DecimalFormat format = new DecimalFormat("$-######;-$######");
 
-        return "";
+        if (balance < 0){
+            String s = "$" + String.format("%.2f", balance);
+            balanceStr = s.replace("$-", "-$");
+        } else {
+            balanceStr = "$" + String.format("%.2f", balance);
+        }
+        // always display the cents as a two-digit number
+        //　return with ','
+        return name + ", " + balanceStr;
     }
 }

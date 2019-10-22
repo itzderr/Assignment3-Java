@@ -31,7 +31,6 @@ public class TestBankAccountTransactionFee {
         account.deposit(50.00);
         account.deposit(10.00);
         account.deposit(70.00);
-
         Assert.assertEquals(expected, account.transactionFee(inputs));
     }
 }
