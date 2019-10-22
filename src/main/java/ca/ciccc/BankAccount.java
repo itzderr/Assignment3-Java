@@ -130,13 +130,13 @@ public class BankAccount {
         if (balance <= 5) {
             return false;
         } else if (balance <= amount + 5){
-            balance -= 5;
-            other.balance += balance;
-            balance = 0;
+            withdraw(5);
+            other.deposit(balance);
+            withdraw(balance);
             return true;
         } else {
-            balance -= amount + 5;
-            other.balance += amount;
+            withdraw(amount + 5);
+            other.deposit(amount);
             return true;
         }
     }
