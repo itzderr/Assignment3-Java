@@ -4,6 +4,9 @@ package ca.ciccc;
  * Assignment 3
  */
 public class BankAccount {
+    public static void main(String[] args) {
+        System.out.println("hey");
+    }
     private String id;
     private String name;
     private double balance;
@@ -99,8 +102,15 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
-
-        return false;
+        double total = 0;
+        for(int i = 1; i <= transactionCount; i++){
+            total += fee * i;
+        }
+        if(balance > total){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -122,8 +132,20 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-
-        return false;
+        double transferFee = 5;
+        double transferMoney = 0;
+        if(balance < transferFee){
+            return false;
+        }
+        if(balance <= amount){
+            transferMoney = (balance - transferFee);
+            other.balance += transferMoney;
+            balance -= (transferFee + transferMoney);
+        }else{
+            other.balance += amount;
+            balance -= (transferFee + amount);
+        }
+        return true;
     }
 
     /**
@@ -137,10 +159,13 @@ public class BankAccount {
      *
      * @return string representation of ca.ciccc.BankAccount
      */
+
     @Override
     public String toString() {
-        // TODO 1: Your code goes here.
-
-        return "";
+        if(balance >= 0) {
+            return name + ", $" + String.format("%.2f", balance);
+        }else{
+            return name + ", -$" + String.format("%.2f", Math.abs(balance));
+        }
     }
 }
