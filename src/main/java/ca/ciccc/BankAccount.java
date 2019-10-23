@@ -99,8 +99,16 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
-
-        return false;
+        int sum = 0;
+        for (int i = 1; i <= transactionCount; i++) {
+            sum += i * fee;
+        }
+        balance = balance - sum;
+        if (balance < 0) {
+            balance = 0;
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -122,8 +130,27 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-
+        if (amount > 5) {
+            balance -= 5;
+            // balance is less than amount
+            if (balance <= amount) {
+                other.balance += balance;
+                balance -= balance;
+            // balance is greater than amount
+            } else {
+                balance -= amount;
+                other.balance += amount;
+                System.out.println("hi");
+            }
+            return true;
+        }
         return false;
+        // if (balance > amount) {
+        //     balance -= amount;
+        //     other.balance += amount;
+        // } else {
+        //     return false;
+        // }
     }
 
     /**
@@ -140,7 +167,13 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-
-        return "";
+        String result;
+        if (balance >= 0) {
+            result = String.format("%s, $%.2f", name, balance);
+        } else {
+            balance = Math.abs(balance);
+            result = String.format("%s, -$%.2f", name, balance);
+        }
+        return result;
     }
 }
