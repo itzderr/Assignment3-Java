@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestBankAccountToString" tests="5" skipped="0" failures="0" errors="0" timestamp="2019-10-23T01:56:15" hostname="macdeMBP.hitronhub.home" time="0.01">
+  <properties/>
+  <testcase name="testToString[0: @ca.ciccc.BankAccount.toString()]" classname="TestBankAccountToString" time="0.006"/>
+  <testcase name="testToString[1: @ca.ciccc.BankAccount.toString()]" classname="TestBankAccountToString" time="0.0"/>
+  <testcase name="testToString[2: @ca.ciccc.BankAccount.toString()]" classname="TestBankAccountToString" time="0.001"/>
+  <testcase name="testToString[3: @ca.ciccc.BankAccount.toString()]" classname="TestBankAccountToString" time="0.0"/>
+  <testcase name="testToString[4: @ca.ciccc.BankAccount.toString()]" classname="TestBankAccountToString" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
