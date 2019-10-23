@@ -100,6 +100,13 @@ public class BankAccount {
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
 
+        double transactionFee = 0;
+        for (int i=0; i <= transactionCount; i++){
+            transactionFee += fee * transactionCount;
+        }
+        if (balance >= transactionFee){
+            return true;
+        }
         return false;
     }
 
@@ -122,9 +129,24 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
+        double transFee = 5;
+        double transMoney = 0;
 
-        return false;
-    }
+        if (balance < transFee) {
+            return false;
+        }
+
+        if (balance <= amount) {
+            transMoney = (balance - transFee);
+            other.deposit(transMoney);
+            balance -= (transFee + transMoney);
+
+        } else {
+            other.deposit(amount);
+            balance -= (transFee + amount);
+        }
+        return true;
+        }
 
     /**
      * Your {@code toString()} method should return a string that contains the account's name
@@ -140,7 +162,13 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-
-        return "";
+        String display;
+        if (balance >= 0){
+            display = String.format("%s, $%.2f", name, balance);
+        }else{
+            balance = Math.abs(balance);
+            display =String.format("%s, -$%.2f", name, balance);
+        }
+        return display;
     }
 }
