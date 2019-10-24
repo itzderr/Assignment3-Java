@@ -1,5 +1,8 @@
 package ca.ciccc;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 /**
  * Assignment 3
  */
@@ -99,7 +102,15 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
+        double feeAmount = 0.0;
 
+        for (int i = 1; i <= transactionCount; i++) {
+            feeAmount += i * fee; // sum 5 for each transaction
+        }if (feeAmount < balance) { // if fee deduction less than
+            balance -= feeAmount;
+            return true;
+        }
+        balance = 0.0;
         return false;
     }
 
@@ -123,6 +134,22 @@ public class BankAccount {
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
+        // if balance is greater than 5, reduce 5 from account
+        if (amount >= 5) {
+            this.balance -= 5;
+
+            if (this.balance >= amount) {
+                other.balance += amount;
+                this.balance -= amount;
+
+            }else if ( this.balance - 5 < amount) {
+                other.balance += this.balance;
+                this.balance = 0;
+            }return true; // if any transaction is done became true
+
+        }
+        this.transactionCount++;
+        other.transactionCount++;
         return false;
     }
 
@@ -138,9 +165,20 @@ public class BankAccount {
      * @return string representation of ca.ciccc.BankAccount
      */
     @Override
+
+
     public String toString() {
         // TODO 1: Your code goes here.
+        return getName() + ", " + dotFix(getBalance(), "$######.00");
+    }
 
-        return "";
+    public String dotFix(double value, String pattern) {
+        // jerry-rigged by Douglas to help pt-Br students.
+        DecimalFormat df = new DecimalFormat(pattern);
+        df.setRoundingMode(RoundingMode.DOWN);
+        String tmp = df.format(value);
+        tmp = tmp.replace(",", ".");
+
+        return tmp;
     }
 }
