@@ -98,8 +98,16 @@ public class BankAccount {
      * @return true if there's enough balance, otherwise false
      */
     public boolean transactionFee(double fee) {
-        // TODO 2: Your code goes here.
+        int feeCount = 0;
+        for (int i = transactionCount; i > 0; i--) {
+            feeCount += i;
+        }
 
+        balance -= fee * feeCount;
+        if (balance >= 0) {
+            return true;
+        }
+        balance = 0;
         return false;
     }
 
