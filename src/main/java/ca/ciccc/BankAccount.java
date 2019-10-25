@@ -1,9 +1,15 @@
 package ca.ciccc;
 
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Locale;
+
 /**
  * Assignment 3
  */
 public class BankAccount {
+
+
     private String id;
     private String name;
     private double balance;
@@ -98,8 +104,18 @@ public class BankAccount {
      * @return true if there's enough balance, otherwise false
      */
     public boolean transactionFee(double fee) {
-        // TODO 2: Your code goes here.
 
+        double deduct = 0.00;
+
+        for (int i= 1; i <= transactionCount; i++) {
+            deduct += i * fee;
+        }
+
+        if (deduct < balance) {
+            this.balance -= deduct;
+            return true;
+        }
+        this.balance = 0.00;
         return false;
     }
 
@@ -121,9 +137,25 @@ public class BankAccount {
      * @return true if transferred any amount of money, otherwise false.
      */
     public boolean transfer(double amount, BankAccount other) {
-        // TODO 3: Your code goes here.
+        // if amount transfer >= balance --> return true
+        //
+        boolean transfer = false;
+        if (this.balance < 5 && amount <= 0) {
 
-        return false;
+            if (balance - 5 >= 0) {
+                this.balance -= 5;
+                if (amount >= this.balance) {
+                    other.balance += this.balance;
+                    this.balance = 0;
+                } else {
+                    other.balance += amount;
+                    this.balance -= amount;
+                }
+                transfer = true;
+            }
+
+        }
+        return transfer;
     }
 
     /**
@@ -137,10 +169,13 @@ public class BankAccount {
      *
      * @return string representation of ca.ciccc.BankAccount
      */
+
     @Override
     public String toString() {
-        // TODO 1: Your code goes here.
+        double balance = 9876543.21;
+        Currency currentCurrency = Currency.getInstance(Locale.CANADA);
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(Locale.CANADA);
 
-        return "";
+        return getName() + ", " + currencyFormatter.format(getBalance());
     }
 }
