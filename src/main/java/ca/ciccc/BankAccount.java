@@ -139,8 +139,23 @@ public class BankAccount {
      */
     @Override
     public String toString() {
-        // TODO 1: Your code goes here.
+        String balanceString = "";
+        if (balance >= 0) {
+            balanceString = String.format(
+                "$%.2f",
+                balance
+            );
+        } else {
+            balanceString = String.format(
+                "-$%.2f",
+                balance * -1
+            );
+        }
 
-        return "";
+        return String.format(
+            "%s, %s",
+            name,
+            balanceString
+        );
     }
 }
