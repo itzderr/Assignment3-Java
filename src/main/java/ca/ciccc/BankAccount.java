@@ -4,6 +4,8 @@ package ca.ciccc;
  * Assignment 3
  */
 public class BankAccount {
+    private final double TRANSFERRING_FEE = 5.0;
+
     private String id;
     private String name;
     private double balance;
@@ -129,9 +131,27 @@ public class BankAccount {
      * @return true if transferred any amount of money, otherwise false.
      */
     public boolean transfer(double amount, BankAccount other) {
-        // TODO 3: Your code goes here.
+        if (balance < TRANSFERRING_FEE) {
+            return false;
+        }
 
-        return false;
+        transactionCount++;
+        balance -= TRANSFERRING_FEE;
+
+        double transferringAmount = 0;
+        if (balance < amount) {
+            transferringAmount = balance;
+            balance = 0;
+        } else {
+            transferringAmount = amount;
+            balance -= amount;
+        }
+        transactionText += "transferered $" + transferringAmount + " amount to " + other.id + "\n";
+
+        other.balance += transferringAmount;
+        other.transactionText += "received a transaction of $" + transferringAmount + " amount from " + id + "\n";
+
+        return true;
     }
 
     /**
