@@ -1,5 +1,7 @@
 package ca.ciccc;
 
+import java.text.DecimalFormat;
+
 /**
  * Assignment 3
  */
@@ -65,7 +67,9 @@ public class BankAccount {
             transactionText += "withdrawal of $" + amount + "\n";
         }
         transactionCount++;
+
     }
+
 
     /**
      * The transactionFee method accepts a fee amount ({@code double}) as a parameter, and applies that fee
@@ -100,6 +104,16 @@ public class BankAccount {
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
 
+        double deduction = 0.0;
+
+        for (int i = 0; i <= transactionCount; i++) {
+            deduction = deduction +  (i * fee);
+        }
+
+        if (balance - deduction >  0) {
+            return true;
+        }
+
         return false;
     }
 
@@ -123,7 +137,22 @@ public class BankAccount {
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
-        return false;
+        if(balance < 5 || amount<= 0){
+            return false;
+        }
+
+        else if(balance - (amount + 5 ) <= 0) {
+            withdraw(5);
+            other.deposit(balance);
+            withdraw(balance);
+            return true;
+        }
+        else{
+            withdraw(5);
+            withdraw(amount);
+            other.deposit(amount);
+            return true;
+        }
     }
 
     /**
@@ -141,6 +170,19 @@ public class BankAccount {
     public String toString() {
         // TODO 1: Your code goes here.
 
-        return "";
+        String name = getName();
+        double money = getBalance();
+        String sign = " ";
+
+        if(money< 0){
+            sign = "-$";
+            money = money*-1;
+        }else{
+            sign = "$";
+
+        }
+        DecimalFormat formato1 = new DecimalFormat("#.00");
+        return (name + ", " +  sign + formato1.format(money)) ;
     }
 }
+
