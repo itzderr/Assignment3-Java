@@ -1,5 +1,8 @@
 package ca.ciccc;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 /**
  * Assignment 3
  */
@@ -98,9 +101,15 @@ public class BankAccount {
      * @return true if there's enough balance, otherwise false
      */
     public boolean transactionFee(double fee) {
-        // TODO 2: Your code goes here.
-
-        return false;
+        double totalFee = 0;
+        for (int i = 0; i < transactionCount; i++){
+            totalFee += fee * (i + 1);
+        }
+        if (balance > totalFee){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -121,10 +130,21 @@ public class BankAccount {
      * @return true if transferred any amount of money, otherwise false.
      */
     public boolean transfer(double amount, BankAccount other) {
-        // TODO 3: Your code goes here.
-
-        return false;
+        if (balance > 5){
+            balance = balance - 5;
+            if (balance > amount){
+                other.balance += amount;
+                balance = balance - amount;
+            } else {
+                other.balance += balance;
+                balance = 0;
+            }
+            return true;
+        } else{
+         return false;
+        }
     }
+
 
     /**
      * Your {@code toString()} method should return a string that contains the account's name
@@ -140,7 +160,10 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-
-        return "";
+        Double a = balance;
+        Locale canada = new Locale("en", "CA"); // My default is Br
+        NumberFormat Canada = NumberFormat.getCurrencyInstance(canada);
+        return name + ", " + Canada.format(a);
     }
+
 }
