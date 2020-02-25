@@ -1,5 +1,9 @@
 package ca.ciccc;
 
+import javax.swing.text.NumberFormatter;
+import java.text.NumberFormat;
+import java.util.Locale;
+
 /**
  * Assignment 3
  */
@@ -98,9 +102,12 @@ public class BankAccount {
      * @return true if there's enough balance, otherwise false
      */
     public boolean transactionFee(double fee) {
-        // TODO 2: Your code goes here.
+        double feeAmount = 0;
+        for (int i = 0; i < transactionCount; i ++){
+            feeAmount = feeAmount + (fee * (i + 1));
+        }
 
-        return false;
+        return balance > feeAmount;
     }
 
     /**
@@ -121,9 +128,21 @@ public class BankAccount {
      * @return true if transferred any amount of money, otherwise false.
      */
     public boolean transfer(double amount, BankAccount other) {
-        // TODO 3: Your code goes here.
-
-        return false;
+        boolean success = false;
+        if (balance > 5 && amount > 0){
+            double amountWithFee = amount + 5;
+             if( balance >= amountWithFee ){
+                 withdraw(amountWithFee);
+                 other.deposit(amount);
+                 success = true;
+             }else{
+                 amount = balance - 5;
+                 withdraw(balance);
+                 other.deposit(amount);
+                 success = true;
+             }
+        }
+        return success;
     }
 
     /**
@@ -139,8 +158,11 @@ public class BankAccount {
      */
     @Override
     public String toString() {
-        // TODO 1: Your code goes here.
+        NumberFormat nf =  NumberFormat.getCurrencyInstance(Locale.CANADA);
 
-        return "";
+
+        String result = String.format("%s, %s",getName(), nf.format(getBalance()).toString() );
+
+        return result;
     }
 }
