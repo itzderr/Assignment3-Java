@@ -82,16 +82,16 @@ public class BankAccount {
      * savings.deposit(10.00);
      * savings.deposit(50.00);
      * savings.deposit(10.00);
-     * savings.deposit(70.00);
+     * savings.deposit(70.00);  140
      *
      * savings.transactionFee(5.00);
      *
-     * The account would be deducted $5 + $10 + $15 + $20 for the four transactions, leaving a final
+     * The account would be deducted $5 + $10 + $15 + $20 (50)for the four transactions, leaving a final
      * balance of $90.00. The method would return true.
      *
      * savings.transactionFee(10.00);
      *
-     * Then the account would be deducted $10 + $20 + $30 + $40 for the four transactions, leaving
+     * Then the account would be deducted $10 + $20 + $30 + $40 (100)for the four transactions, leaving
      * a final balance of $0.00. The method would return false.
      *
      * @param fee
@@ -99,8 +99,17 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
-
-        return false;
+        double feeAmount = 0;
+        for ( int i = 0; i < transactionCount; i++){
+            feeAmount += feeAmount + fee;
+        }
+        if (balance > feeAmount) {
+            balance -= feeAmount;
+            return true;
+        } else {
+            balance = 0;
+            return false;
+        }
     }
 
     /**
@@ -122,8 +131,19 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-
-        return false;
+        if (this.balance < 5 || amount <= 0) {
+            return false;
+        }
+        this.balance -= 5;
+        if (this.balance < amount) {
+            other.balance += this.balance;
+            this.balance = 0;
+            return true;
+        } else {
+            other.balance += amount;
+            this.balance -= amount;
+            return true;
+        }
     }
 
     /**
@@ -140,7 +160,13 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-
-        return "";
+        String result = "";
+        if (this.balance < 0) {
+            double a = - this.balance;
+            result = String.format("%s, -$%.2f", this.name, a);
+        } else {
+            result = String.format("%s, $%.2f", this.name, this.balance);
+        }
+        return result;
     }
 }

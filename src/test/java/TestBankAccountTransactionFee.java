@@ -12,8 +12,8 @@ public class TestBankAccountTransactionFee {
     @Parameterized.Parameters(name = "{index}: @ca.ciccc.BankAccount.transactionFee()")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][] {
-                {5.00, true},
-                {7.00, true},
+                {5.00, true},  // 5 + 10 + 15 + 20 = 50
+                {7.00, true},  // 7 + 14 + 21 +
                 {20.00, false},
         });
     }
@@ -31,7 +31,7 @@ public class TestBankAccountTransactionFee {
         account.deposit(50.00);
         account.deposit(10.00);
         account.deposit(70.00);
-
+        // 140
         Assert.assertEquals(expected, account.transactionFee(inputs));
     }
 }
