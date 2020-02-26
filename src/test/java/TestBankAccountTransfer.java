@@ -21,51 +21,30 @@ public class TestBankAccountTransfer{
                 {3, 0, 3, 0, 3, false},
         });
     }
-
-    @Parameterized.Parameter(0)
-    public double balance1;
-
-    @Parameterized.Parameter(1)
-    public double balance2;
-
-    @Parameterized.Parameter(2)
-    public double transferAmount;
-
-    @Parameterized.Parameter(3)
-    public double expectedAmount;
-
-    @Parameterized.Parameter(4)
-    public double expectedRemaining;
-
-    @Parameterized.Parameter(5)
-    public boolean expectedReturn;
-
+    @Parameterized.Parameter(0) public double balance1;
+    @Parameterized.Parameter(1) public double balance2;
+    @Parameterized.Parameter(2) public double transferAmount;
+    @Parameterized.Parameter(3) public double expectedAmount;
+    @Parameterized.Parameter(4) public double expectedRemaining;
+    @Parameterized.Parameter(5) public boolean expectedReturn;
     private static final double DELTA = 0.001;
-
-    @Test
-    public void testTransferReturn() {
+    @Test public void testTransferReturn() {
         BankAccount account1 = new BankAccount(balance1);
         BankAccount account2 = new BankAccount(balance2);
-
         Assert.assertEquals(expectedReturn, account1.transfer(transferAmount, account2));
     }
-
     @Test
     public void testTransferAccount1() {
         BankAccount account1 = new BankAccount(balance1);
         BankAccount account2 = new BankAccount(balance2);
         account1.transfer(transferAmount, account2);
-
         Assert.assertEquals(expectedRemaining, account1.getBalance(), DELTA);
     }
-
     @Test
     public void testTransferAccount2() {
         BankAccount account1 = new BankAccount(balance1);
         BankAccount account2 = new BankAccount(balance2);
         account1.transfer(transferAmount, account2);
-
         Assert.assertEquals(expectedAmount, account2.getBalance(), DELTA);
     }
-
 }

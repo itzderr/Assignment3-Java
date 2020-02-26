@@ -20,15 +20,9 @@ public class TestBankAccountToString {
                 {new BankAccount("1", "Ethan", 7.25, true), "Ethan, $7.25"},
         });
     }
-
-    @Parameterized.Parameter
-    public BankAccount inputs;
-
-    @Parameterized.Parameter(1)
-    public String expected;
-
-    @Test
-    public void testToString() {
+    @Parameterized.Parameter    public BankAccount inputs;
+    @Parameterized.Parameter(1) public String expected;
+    @Test                       public void testToString() {
         Assert.assertEquals(expected, inputs.toString());
     }
 }

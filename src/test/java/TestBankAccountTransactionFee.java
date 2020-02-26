@@ -18,20 +18,13 @@ public class TestBankAccountTransactionFee {
         });
     }
 
-    @Parameterized.Parameter
-    public double inputs;
-
-    @Parameterized.Parameter(1)
-    public boolean expected;
-
-    @Test
-    public void testTransactionFee() {
-        BankAccount account = new BankAccount();
-        account.deposit(10.00);
-        account.deposit(50.00);
-        account.deposit(10.00);
-        account.deposit(70.00);
-
-        Assert.assertEquals(expected, account.transactionFee(inputs));
+    @Parameterized.Parameter    public double inputs;
+    @Parameterized.Parameter(1) public boolean expected;
+    @Test                       public void testTransactionFee() {BankAccount account = new BankAccount();
+                                                                              account.deposit(10.00);
+                                                                              account.deposit(50.00);
+                                                                              account.deposit(10.00);
+                                                                              account.deposit(70.00);
+                        Assert.assertEquals(expected, account.transactionFee(inputs));
     }
 }
