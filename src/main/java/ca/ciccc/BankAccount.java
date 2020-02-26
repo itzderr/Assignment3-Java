@@ -10,6 +10,7 @@ public class BankAccount {
     private boolean allowNegativeBalance;
     private int transactionCount = 0;
     private String transactionText = "";
+    private Object BankAccount;
 
     public BankAccount() { }
 
@@ -100,7 +101,16 @@ public class BankAccount {
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
 
-        return false;
+        double deduct = fee;
+
+        for (int i = 1; i <= this.transactionCount; i++) {
+            deduct += (fee * i);
+            }
+        if (this.balance - deduct >= 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -123,7 +133,22 @@ public class BankAccount {
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
-        return false;
+        if (this.balance >= 5) {
+            this.balance -= 5;
+            double transfer = 0;
+
+            if (this.balance - amount < 0) {
+                transfer = this.balance;
+                this.balance = 0;
+                other.deposit(transfer);
+            } else {
+                this.balance -= amount;
+                other.balance += amount;
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -141,6 +166,10 @@ public class BankAccount {
     public String toString() {
         // TODO 1: Your code goes here.
 
-        return "";
+        if (balance > 0) {
+            return String.format("%s, $%.2f", name, Math.abs(balance));
+        } else {
+            return String.format("%s, -$%.2f", name, Math.abs(balance));
+        }
     }
 }
