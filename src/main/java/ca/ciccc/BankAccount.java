@@ -11,7 +11,8 @@ public class BankAccount {
     private int transactionCount = 0;
     private String transactionText = "";
 
-    public BankAccount() { }
+    public BankAccount() {
+    }
 
     public BankAccount(double balance) {
         this.id = "test account";
@@ -98,49 +99,72 @@ public class BankAccount {
      * @return true if there's enough balance, otherwise false
      */
     public boolean transactionFee(double fee) {
-        // TODO 2: Your code goes here.
-
+        int sum = 0;
+        for (int i = 0; i < transactionCount; i++) {
+            sum += fee * (i+1);
+        }
+        if (sum <= balance) {
+            balance -= sum;
+            return true;
+        }
+        balance = 0;
         return false;
     }
 
     /**
-     * The transfer method moves money from `this` bank account to another account. The method
-     * accepts two parameters: the amount of money to transfer and the other ca.ciccc.BankAccount to accept
-     * the money.
-     * There is a $5.00 fee for transferring money, so this much must be deducted from the current
-     * account's balance before any transfer.
+     * The transfer method moves money from `this` bank account to another account.
+     * The method accepts two parameters: the amount of money to transfer and the
+     * other ca.ciccc.BankAccount to accept the money. There is a $5.00 fee for
+     * transferring money, so this much must be deducted from the current account's
+     * balance before any transfer.
      *
-     * If `this` account object does not have enough money to make full transfer, then transfer
-     * whatever money is left after the $5.00 fee is deducted. If this account has under $5.00 or amount is 0 or less,
-     * no transfer should occur and neither account's state should be modified.
+     * If `this` account object does not have enough money to make full transfer,
+     * then transfer whatever money is left after the $5.00 fee is deducted. If this
+     * account has under $5.00 or amount is 0 or less, no transfer should occur and
+     * neither account's state should be modified.
      *
-     * If any amount of money is transferred, return {@code true}. Otherwise {@code false}.
+     * If any amount of money is transferred, return {@code true}. Otherwise
+     * {@code false}.
      *
      * @param amount
      * @param other
      * @return true if transferred any amount of money, otherwise false.
      */
     public boolean transfer(double amount, BankAccount other) {
-        // TODO 3: Your code goes here.
+        final double TRANSFER_FEE = 5.0;
+        double totalAmount = amount + TRANSFER_FEE;
+        if (balance < TRANSFER_FEE) {
+            return false;
+        }
+        balance -= TRANSFER_FEE;
 
-        return false;
+        if (totalAmount > balance) {
+            other.balance += balance;
+            balance = 0;
+            return true;
+        }
+        balance -= amount;
+        other.balance += amount;
+
+        return true;
     }
 
     /**
-     * Your {@code toString()} method should return a string that contains the account's name
-     * and balance separated by a comma and space. For example, if an account object has name
-     * "Derrick" and a balance of 20.55, this method should return "Derrick, $20.55"
-     * There are some special cases you should handle. If the balance is negative, put the -sign
-     * before the dollar sign. Also, always display the cents as a two-digit number.
-     * For example, if the same object had a balance of -17.5, your method should return
-     * "Derrick, -$17.50"
+     * Your {@code toString()} method should return a string that contains the
+     * account's name and balance separated by a comma and space. For example, if an
+     * account object has name "Derrick" and a balance of 20.55, this method should
+     * return "Derrick, $20.55" There are some special cases you should handle. If
+     * the balance is negative, put the -sign before the dollar sign. Also, always
+     * display the cents as a two-digit number. For example, if the same object had
+     * a balance of -17.5, your method should return "Derrick, -$17.50"
      *
      * @return string representation of ca.ciccc.BankAccount
      */
     @Override
     public String toString() {
-        // TODO 1: Your code goes here.
-
-        return "";
+        if (balance >= 0) {
+            return String.format("%s, $%.2f", name, balance);
+        }
+        return String.format("%s, -$%.2f", name, -balance);
     }
 }
