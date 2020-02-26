@@ -1,5 +1,8 @@
 package ca.ciccc;
 
+import java.beans.FeatureDescriptor;
+import java.text.DecimalFormat;
+
 /**
  * Assignment 3
  */
@@ -10,6 +13,7 @@ public class BankAccount {
     private boolean allowNegativeBalance;
     private int transactionCount = 0;
     private String transactionText = "";
+    private double FEE = 5;
 
     public BankAccount() { }
 
@@ -99,8 +103,17 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
-
-        return false;
+        double allFee = 0;
+        for (int i = 0; i <= this.transactionCount; i++) {
+            allFee += fee * i;
+        }
+        System.out.println(allFee);
+        if ((this.balance - allFee) > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     /**
@@ -122,7 +135,22 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-
+        //double leftMoney;
+        if (this.balance < FEE){
+            return false;
+        }
+        if ((this.balance - FEE) >= amount) {
+            this.balance -= amount + FEE;
+            other.balance += amount;
+            return true;
+        }
+        else if ((this.balance - FEE) < amount) {
+            //leftMoney = this.balance - FEE;
+            this.balance -= FEE;
+            other.balance += this.balance;
+            this.balance = 0;
+            return true;
+        }
         return false;
     }
 
@@ -140,7 +168,13 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-
-        return "";
+        //DecimalFormat df = new DecimalFormat("#.##");
+        //String balance = df.format(this.balance);
+        String strBalance = String.format("%.2f", Math.abs(getBalance()));
+        if (this.balance < 0) {
+            return getName() + ", -$" + strBalance;
+        } else {
+            return getName() + ", $" + strBalance;
+        }
     }
 }
