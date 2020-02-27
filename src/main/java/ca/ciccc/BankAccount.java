@@ -11,7 +11,8 @@ public class BankAccount {
     private int transactionCount = 0;
     private String transactionText = "";
 
-    public BankAccount() { }
+    public BankAccount() {
+    }
 
     public BankAccount(double balance) {
         this.id = "test account";
@@ -75,22 +76,22 @@ public class BankAccount {
      * fees with greater than $0.00 remaining, the method will return {@code true}. If the balance cannot
      * afford all of the fees or has no money left, the balance is left as 0.0 and method returns
      * {@code false}.
-     *
+     * <p>
      * For example, given the following ca.ciccc.BankAccount object.
-     *
+     * <p>
      * ca.ciccc.BankAccount savings = new ca.ciccc.BankAccount("Jimmy");
      * savings.deposit(10.00);
      * savings.deposit(50.00);
      * savings.deposit(10.00);
      * savings.deposit(70.00);
-     *
+     * <p>
      * savings.transactionFee(5.00);
-     *
+     * <p>
      * The account would be deducted $5 + $10 + $15 + $20 for the four transactions, leaving a final
      * balance of $90.00. The method would return true.
-     *
+     * <p>
      * savings.transactionFee(10.00);
-     *
+     * <p>
      * Then the account would be deducted $10 + $20 + $30 + $40 for the four transactions, leaving
      * a final balance of $0.00. The method would return false.
      *
@@ -99,8 +100,12 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
+        double fee1 = 0;
 
-        return false;
+        for (int i = 0; i <= getTransactionCount(); i++) {
+            fee1 += fee * i;
+        }
+        return (getBalance() - fee1 > 0);
     }
 
     /**
@@ -109,11 +114,11 @@ public class BankAccount {
      * the money.
      * There is a $5.00 fee for transferring money, so this much must be deducted from the current
      * account's balance before any transfer.
-     *
-     * If `this` account object does not have enough money to make full transfer, then transfer
+     * <p>
+     * If `this` account object does not have enough money to make full transfer, *******then transfer
      * whatever money is left after the $5.00 fee is deducted. If this account has under $5.00 or amount is 0 or less,
      * no transfer should occur and neither account's state should be modified.
-     *
+     * <p>
      * If any amount of money is transferred, return {@code true}. Otherwise {@code false}.
      *
      * @param amount
@@ -123,8 +128,32 @@ public class BankAccount {
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
+        double fee = 5;
+        double rest = getBalance() - fee;
+
+        if (getBalance() > fee) {
+            if (getBalance() - amount - fee >= 0) {
+                withdraw(amount + fee);
+                other.deposit(amount);
+            }
+
+            if (getBalance() - amount - fee < 0) {
+                withdraw(rest + fee);
+                other.deposit(rest);
+            }
+
+        return true;
+        }
         return false;
-    }
+        }
+
+
+
+
+
+
+
+
 
     /**
      * Your {@code toString()} method should return a string that contains the account's name
@@ -141,6 +170,17 @@ public class BankAccount {
     public String toString() {
         // TODO 1: Your code goes here.
 
-        return "";
+
+        if (getBalance() >= 0) {
+
+            return getName() + "," + " $" + String.format("%.2f", getBalance());
+
+        } else {
+
+
+            return getName() + "," + " -$" + String.format("%.2f", getBalance() * -1);
+
+        }
     }
 }
+
