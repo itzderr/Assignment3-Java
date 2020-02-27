@@ -1,6 +1,7 @@
 package ca.ciccc;
 
 import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Assignment 3
@@ -158,6 +159,6 @@ public class BankAccount {
     }
 
     private String getBalanceFormatted() {
-        return NumberFormat.getCurrencyInstance().format(getBalance());
+        return NumberFormat.getCurrencyInstance(Locale.CANADA).format(getBalance());
     }
 }
