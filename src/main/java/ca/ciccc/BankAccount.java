@@ -10,6 +10,7 @@ public class BankAccount {
     private boolean allowNegativeBalance;
     private int transactionCount = 0;
     private String transactionText = "";
+    double totalFee = 0;
 
     public BankAccount() { }
 
@@ -69,9 +70,11 @@ public class BankAccount {
 
     /**
      * The transactionFee method accepts a fee amount ({@code double}) as a parameter, and applies that fee
-     * to the user's past transactions. The fee is applied once for the first transaction, twice for
-     * the second transaction, three times for the third, and so on. These fees are subtracted out
-     * from the user's overall balance. If the user's balance is large enough to afford all of the
+     * to the user's past transactions.
+     *
+     * The fee is applied once for the first transaction, twice for the second transaction, three times for the third, and so on.
+     *
+     * These fees are subtracted out from the user's overall balance. If the user's balance is large enough to afford all of the
      * fees with greater than $0.00 remaining, the method will return {@code true}. If the balance cannot
      * afford all of the fees or has no money left, the balance is left as 0.0 and method returns
      * {@code false}.
@@ -100,18 +103,32 @@ public class BankAccount {
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
 
+        double totalFees = 0;
+
+        for ( int i = 0; i < transactionCount; i++) {
+            totalFees += totalFees + fee;
+        }
+
+        if (balance > totalFees) {
+            balance -= totalFees;
+            return true;
+        }
         return false;
     }
 
     /**
-     * The transfer method moves money from `this` bank account to another account. The method
-     * accepts two parameters: the amount of money to transfer and the other ca.ciccc.BankAccount to accept
-     * the money.
+     * The transfer method moves money from `this` bank account to another account.
+     *
+     * The method accepts two parameters: the amount of money to transfer and the other ca.ciccc.
+     * BankAccount to accept the money.
+     *
      * There is a $5.00 fee for transferring money, so this much must be deducted from the current
      * account's balance before any transfer.
      *
      * If `this` account object does not have enough money to make full transfer, then transfer
-     * whatever money is left after the $5.00 fee is deducted. If this account has under $5.00 or amount is 0 or less,
+     * whatever money is left after the $5.00 fee is deducted.
+     *
+     * If this account has under $5.00 or amount is 0 or less,
      * no transfer should occur and neither account's state should be modified.
      *
      * If any amount of money is transferred, return {@code true}. Otherwise {@code false}.
@@ -123,7 +140,23 @@ public class BankAccount {
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
-        return false;
+        double fee = 5;
+
+        if (balance < fee || amount <= 0) {
+            return false;
+        }
+
+        balance -= fee;
+
+        if (balance < amount) {
+            other.balance += balance;
+            balance = 0;
+            return true;
+        }
+
+        other.balance += amount;
+        balance -= amount;
+        return true;
     }
 
     /**
@@ -141,6 +174,14 @@ public class BankAccount {
     public String toString() {
         // TODO 1: Your code goes here.
 
-        return "";
+        String strResult = "";
+
+        if (balance < 0) {
+            balance = balance * -1;
+            strResult = String.format(name + ", " + "-$" + "%.2f", balance);
+        } else {
+            strResult = String.format(name + ", " + "$" + "%.2f", balance);
+        }
+        return strResult;
     }
 }
