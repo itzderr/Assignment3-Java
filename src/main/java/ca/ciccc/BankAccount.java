@@ -1,5 +1,9 @@
 package ca.ciccc;
 
+import java.lang.reflect.MalformedParameterizedTypeException;
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 /**
  * Assignment 3
  */
@@ -98,9 +102,11 @@ public class BankAccount {
      * @return true if there's enough balance, otherwise false
      */
     public boolean transactionFee(double fee) {
-        // TODO 2: Your code goes here.
-
-        return false;
+        double totalFee = 0;
+        for (int i = 1; i < this.transactionCount + 1; i++) {
+            totalFee += fee * i;
+        }
+        return this.balance > totalFee;
     }
 
     /**
@@ -121,9 +127,18 @@ public class BankAccount {
      * @return true if transferred any amount of money, otherwise false.
      */
     public boolean transfer(double amount, BankAccount other) {
-        // TODO 3: Your code goes here.
-
-        return false;
+        if (amount == 0) return false;
+        if (this.balance < 5.0) return false;
+        this.withdraw(5);
+        if (this.balance - amount >= 0) {
+            this.withdraw(amount);
+            other.deposit(amount);
+        } else {
+            double tmpBalance = this.balance;
+            this.withdraw(this.balance);
+            other.deposit(tmpBalance);
+        }
+        return true;
     }
 
     /**
@@ -139,8 +154,13 @@ public class BankAccount {
      */
     @Override
     public String toString() {
-        // TODO 1: Your code goes here.
-
-        return "";
+        // abs positive or negative
+        String balance = "";
+        if (this.getBalance() < 0) {
+            balance = "-$" + new BigDecimal(Math.abs(this.getBalance())).setScale(2).toString();
+        } else {
+            balance = "$" + new BigDecimal(Math.abs(this.getBalance())).setScale(2).toString();
+        }
+        return String.format("%s, %s", this.getName(), balance);
     }
 }
