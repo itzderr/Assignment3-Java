@@ -1,5 +1,8 @@
 package ca.ciccc;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Assignment 3
  */
@@ -99,9 +102,21 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
+        for (int i = 1; i <= transactionCount; i++) {
+            if (i >= 3) {
+                fee = fee / (i - 1);
+            }
+            fee *= i;
+            balance -= fee;
+        }
 
-        return false;
+        if (balance > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
 
     /**
      * The transfer method moves money from `this` bank account to another account. The method
@@ -119,11 +134,29 @@ public class BankAccount {
      * @param amount
      * @param other
      * @return true if transferred any amount of money, otherwise false.
+     * I used following URL as a reference when I was wondering how I should put deposit and withdraw function.
+     * https://stackoverflow.com/questions/24564790/bank-account-transferto-method
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-
-        return false;
+        if (balance <= 5.00 || amount <= 0) {
+            return false;
+        }
+        if (balance - 5.00 >= amount) {
+            withdraw(amount);
+            other.deposit(amount);
+            balance -= 5.00;
+            return true;
+        } else {
+            /**
+             * set leftover variable because an error occurred when I use "balance - 5.00"
+             */
+            double leftBalance = balance - 5.00;
+            withdraw(leftBalance);
+            other.deposit(leftBalance);
+            balance -= 5.00;
+            return true;
+        }
     }
 
     /**
@@ -140,7 +173,22 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
+        /**
+         * set following variable to convert negative balance to positive one
+         */
+        double negToPos = balance * -1;
+        BigDecimal negToPosSrc = BigDecimal.valueOf(negToPos);
+        BigDecimal negToPosVal = negToPosSrc.setScale(2, RoundingMode.DOWN);
+        /**
+         * set following variable for only positive balance
+         */
+        BigDecimal val = BigDecimal.valueOf(balance);
+        BigDecimal floorVal = val.setScale(2, RoundingMode.DOWN);
 
-        return "";
+        if (balance < 0) {
+            return name + ", -$" + negToPosVal;
+        } else {
+            return name + ", $" + floorVal;
+        }
     }
 }
