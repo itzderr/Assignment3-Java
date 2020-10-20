@@ -100,7 +100,14 @@ public class BankAccount {
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
 
-        return false;
+        // if the TransactionCount is n times,
+        // we have to pay (1 + 2 + 3 + .... n)*fee.
+        // Thus, the total Fee will be ((n+1)*n/2) * fee
+
+
+        int n = getTransactionCount();
+        double totalFee= fee*(n+1)*n/2;
+        return getBalance() - totalFee > 0;
     }
 
     /**
@@ -123,7 +130,36 @@ public class BankAccount {
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
-        return false;
+        //Calculate how much the balance of this account will be left.
+        double remain = this.getBalance() - amount - 5;
+
+        // If you can pay fee -> if you can transfer,
+        if (getBalance()>=5){
+
+            // if the remain >=0 -> which means we can transfer all the "amount" which is declared,
+            // the other account will be added the "amount"
+            // and the current account will be remain.
+
+            if (remain >= 0){
+                other.balance += amount;
+                this.balance = remain;
+
+            // if the remain <0 -> which means we can't transfer the "amount" which is declared
+            // -> which means what we can transfer is all the balance we have in the current account.
+            // In this case, the other account will be add the current balance - fee,
+            // and the current balance will be 0.
+            }else {
+                other.balance += getBalance() - 5;
+                this.balance = 0;
+
+            }
+            return true;
+
+        // if you can't pay fee, do nothing.
+        }else{
+            return false;
+        }
+
     }
 
     /**
@@ -140,7 +176,7 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-
-        return "";
+        String s = getBalance()<0 ? "-"+"$": "$";
+        return String.format("%s, %s%.2f",getName(), s, Math.abs(getBalance()));
     }
 }
