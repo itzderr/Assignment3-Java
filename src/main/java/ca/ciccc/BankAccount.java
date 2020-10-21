@@ -99,8 +99,12 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
-
-        return false;
+        double totalFee = 0;
+        for (int i = 1; i <= transactionCount; i++) {
+            totalFee += fee * i;
+        }
+//        System.out.printf("fee: %.2f, transCnt: %d, balance: %.2f, totalFee: %.2f, remain:%.2f %n", fee, transactionCount, balance, totalFee, balance-totalFee);
+        return (balance - totalFee > 0);
     }
 
     /**
@@ -122,8 +126,31 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
+        double fee = 5.00;
+        // can not transfer
+        if (balance < fee || amount == 0) {
+//            System.out.printf("<false> balance: %.2f, amount: %.2f %n", balance, amount);
+            return false;
+        }
 
-        return false;
+        double withdrawAmount;
+        double depositAmount;
+        if (balance < amount + fee) {
+//            System.out.printf("<part transfer> balance: %.2f, amount: %.2f %n", balance, amount);
+            withdrawAmount = balance;
+            depositAmount = balance - fee;
+        } else {
+            withdrawAmount = amount + fee;
+            depositAmount = amount;
+        }
+
+        // transfer
+//        System.out.printf("<before> this.balance: %.2f, other.balance: %.2f, transAmount: %.2f%n", balance, other.balance, depositAmount);
+        withdraw(withdrawAmount);
+        other.deposit(depositAmount);
+//        System.out.printf("<Transferred> this.balance: %.2f, other.balance: %.2f%n", balance, other.balance);
+
+        return true;
     }
 
     /**
@@ -140,7 +167,9 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-
-        return "";
+        StringBuilder sbBalance = new StringBuilder((balance < 0) ? "-$" : "$");
+        sbBalance.append(String.format("%.2f", Math.abs(balance)));
+//        System.out.println(name + ", " + sbBalance);
+        return name + ", " + sbBalance;
     }
 }
