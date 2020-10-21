@@ -4,12 +4,14 @@ package ca.ciccc;
  * Assignment 3
  */
 public class BankAccount {
+    // data field
     private String id;
     private String name;
     private double balance;
     private boolean allowNegativeBalance;
     private int transactionCount = 0;
     private String transactionText = "";
+
 
     public BankAccount() { }
 
@@ -98,10 +100,17 @@ public class BankAccount {
      * @return true if there's enough balance, otherwise false
      */
     public boolean transactionFee(double fee) {
-        // TODO 2: Your code goes here.
-
+        double feeTotal = 0;
+        for (int i = 1; i < getTransactionCount() + 1 ; i++){
+            feeTotal = feeTotal + (fee * i);
+        }
+        double balanceDeducted = getBalance() - (feeTotal);
+        if (balanceDeducted > 0.00){
+            return true;
+        }
         return false;
     }
+
 
     /**
      * The transfer method moves money from `this` bank account to another account. The method
@@ -121,8 +130,18 @@ public class BankAccount {
      * @return true if transferred any amount of money, otherwise false.
      */
     public boolean transfer(double amount, BankAccount other) {
-        // TODO 3: Your code goes here.
-
+        if (this.getBalance() >= 5.00){
+            double deductedBalance = this.getBalance() - 5.00;
+            if (deductedBalance >= amount){
+                this.balance = deductedBalance - amount;
+                other.balance = other.getBalance() + amount;
+                return true;
+            } else if (deductedBalance < amount){
+                other.balance = other.getBalance() + deductedBalance;
+                this.balance = 0;
+                return true;
+            }
+        }
         return false;
     }
 
@@ -139,8 +158,12 @@ public class BankAccount {
      */
     @Override
     public String toString() {
-        // TODO 1: Your code goes here.
-
-        return "";
+        if (this.getBalance() >= 0.00){
+            String s = String.format("%.2f",balance);
+            return name + ", $" + s;
+        }
+        balance = balance * -1;
+        String s = String.format("%.2f", balance);
+        return name + ", -$" + s;
     }
 }
