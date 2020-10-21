@@ -1,5 +1,7 @@
 package ca.ciccc;
 
+import java.text.DecimalFormat;
+
 /**
  * Assignment 3
  */
@@ -99,8 +101,14 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
-
-        return false;
+        for (int i = 0; i <= transactionCount; i++) {
+            balance -= (fee * i);
+        } if (balance > 0) {
+            return true;
+        } else {
+            balance = 0;
+            return false;
+        }
     }
 
     /**
@@ -122,8 +130,21 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-
-        return false;
+        double transferFee = 5;
+        if (balance >= 5) {
+            balance -= transferFee;
+            if (balance > amount) {
+                this.withdraw(amount);
+                other.deposit(amount);
+                return true;
+            } else {
+                amount = balance;
+                this.withdraw(amount);
+                other.deposit(amount);
+                return true;
+            }
+        } else
+            return false;
     }
 
     /**
@@ -140,7 +161,11 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-
-        return "";
+        DecimalFormat df = new DecimalFormat("$#.00##");
+        if (balance  < 0) {
+            return String.format(name  + ", " + df.format(balance));
+        } else {
+            return String.format(name  + ", " + df.format(balance));
+        }
     }
 }
