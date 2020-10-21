@@ -4,7 +4,6 @@ package ca.ciccc;
  * Assignment 3
  */
 public class BankAccount {
-    // data field
     private String id;
     private String name;
     private double balance;
