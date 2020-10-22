@@ -1,3 +1,12 @@
+/**
+ *
+ * 
+ * Helped by Takayasu
+ *
+ *
+ */
+
+
 package ca.ciccc;
 
 /**
@@ -99,8 +108,13 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
+        double sumFee = 0;
+        for(int i = 1; i <= transactionCount ; i++){
+            sumFee += fee * i;
 
-        return false;
+        }
+
+        return (balance - sumFee) >0;
     }
 
     /**
@@ -122,8 +136,26 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
+        if(balance < 5.00 || amount == 0){
+            return false;
+        }
 
-        return false;
+
+        withdraw(5.00);
+        // balance = 10 amaunt = 5 => 5
+        // balance = 3 amount = 10 => 3
+
+        if((balance - amount) > 0){
+            balance -= amount ;
+            other.deposit(amount);
+        }else{
+            other.deposit(balance);
+            balance =  0;
+        }
+
+
+
+        return true;
     }
 
     /**
@@ -139,8 +171,16 @@ public class BankAccount {
      */
     @Override
     public String toString() {
-        // TODO 1: Your code goes here.
 
-        return "";
+        // TODO 1: Your code goes here.
+        String operator = "";
+        if (getBalance() < 0){
+            operator = "-";
+        }
+
+
+        String balance = String.format("$%.2f", Math.abs(this.getBalance()));
+
+        return name + ", " + operator + balance ;
     }
 }
