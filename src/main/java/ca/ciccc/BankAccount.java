@@ -100,12 +100,12 @@ public class BankAccount {
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
 
-        if (balance > 0 & fee > 0) {
-            for (int i = 1; i <= transactionCount; i++) {
+        if (getBalance() > 0 & fee > 0) {
+            for (int i = 1; i <= getTransactionCount(); i++) {
                 balance -= (fee * i);
             }
         }
-        return balance > 0;
+        return getBalance() > 0;
 
     }
 
@@ -129,7 +129,22 @@ public class BankAccount {
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
-        return false;
+        // this account has under $5.00 or amount is 0 or less
+        if (this.getBalance() <= 5 || amount <= 0) {
+            return false;
+        }
+
+        // else
+        // deduct the transaction fee
+        this.withdraw(5);
+
+        double finalAmountToTransfer = Math.min(this.getBalance(), amount);
+
+        this.withdraw(finalAmountToTransfer);
+        other.deposit(finalAmountToTransfer);
+
+        return true;
+
     }
 
     /**
@@ -147,6 +162,10 @@ public class BankAccount {
     public String toString() {
         // TODO 1: Your code goes here.
 
-        return "";
+        return String.format("%s, %s$%.2f",
+                getName(),
+                getBalance() >= 0 ? "" : "-",
+                Math.abs(getBalance()));
+
     }
 }
