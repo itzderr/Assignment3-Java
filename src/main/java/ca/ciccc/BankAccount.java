@@ -100,7 +100,13 @@ public class BankAccount {
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
 
-        return false;
+        if (balance > 0 & fee > 0) {
+            for (int i = 1; i <= transactionCount; i++) {
+                balance -= (fee * i);
+            }
+        }
+        return balance > 0;
+
     }
 
     /**
