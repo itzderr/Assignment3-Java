@@ -1,5 +1,8 @@
 package ca.ciccc;
 
+import java.text.DecimalFormat;
+import java.util.Arrays;
+
 /**
  * Assignment 3
  */
@@ -10,6 +13,7 @@ public class BankAccount {
     private boolean allowNegativeBalance;
     private int transactionCount = 0;
     private String transactionText = "";
+
 
     public BankAccount() { }
 
@@ -99,8 +103,13 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
-
-        return false;
+        double tfee=0;
+        double ftfee=0;
+        for (int i=1;i<=transactionCount;i++){
+             tfee=i*fee;
+             ftfee+=tfee;
+        }
+        if (balance<ftfee) {return false;} else {return true;}
     }
 
     /**
@@ -122,8 +131,24 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
+       double transferfee=5;
+       double noEnough;
 
-        return false;
+        if (this.balance<=transferfee){return false;}
+        else {
+            if (this.balance >= amount + transferfee) {
+                    this.balance = this.balance - amount - transferfee;
+                    other.balance = other.balance + amount;
+                    return true;
+                 }
+            else {
+                    noEnough=this.balance-transferfee;
+                    this.balance -= this.balance;
+                    other.balance = other.balance + noEnough;
+                 }
+                return true;
+            }
+
     }
 
     /**
@@ -140,7 +165,15 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
+        String arraytoString = String.join(" ", (name));
 
-        return "";
+        DecimalFormat df   = new DecimalFormat("######0.00");
+       // df.format(balance);
+        String arrayinttoString=String.valueOf(df.format(balance));
+        String a=String.format("%s, $%s",arraytoString,arrayinttoString);
+        String aEdit=a.replace("$-","-$");
+        return aEdit;
+
+
     }
 }
