@@ -98,7 +98,6 @@ public class BankAccount {
      * @return true if there's enough balance, otherwise false
      */
     public boolean transactionFee(double fee) {
-        // TODO 2: Your code goes here.
         for (int c = 0; c < transactionCount; c++) {
             fee += fee;
         }
@@ -123,7 +122,6 @@ public class BankAccount {
      * @return true if transferred any amount of money, otherwise false.
      */
     public boolean transfer(double amount, BankAccount other) {
-        // TODO 3: Your code goes here.
         if(balance > 5 && amount + 5 < balance){
             balance -= 5 + amount;
             other.balance += amount;
@@ -150,7 +148,6 @@ public class BankAccount {
      */
     @Override
     public String toString() {
-        // TODO 1: Your code goes here.
         return String.format("%s, %s$%.2f",
                 name,
                 (balance >= 0) ? "" : "-",
