@@ -100,7 +100,18 @@ public class BankAccount {
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
 
-        return false;
+        for (int i = 0; i <= getTransactionCount(); i++) {
+            double j = fee * i;
+            balance -= j;
+        }
+
+        if (getBalance() > 0) {
+            return true;
+        } else {
+            balance = 0;
+            return false;
+        }
+
     }
 
     /**
@@ -122,8 +133,22 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
+        if(balance < 5 || amount<= 0){
+            return false;
+        }
 
-        return false;
+        if(balance - (amount + 5 ) <= 0) {
+            withdraw(5);
+            other.deposit(balance);
+            withdraw(balance);
+            return true;
+        }
+        else{
+            withdraw(5);
+            withdraw(amount);
+            other.deposit(amount);
+            return true;
+        }
     }
 
     /**
@@ -141,6 +166,20 @@ public class BankAccount {
     public String toString() {
         // TODO 1: Your code goes here.
 
-        return "";
+        // for positive number
+        String positiveBalance = String.format("%.2f", getBalance());
+
+        // for negative number
+        double negativeBalance = Math.abs(getBalance());
+        String newNegativeBalance = String.format("%.2f", negativeBalance);
+
+        if (getBalance() >= 0) {
+            String details = String.format(getName() + ", $" + positiveBalance);
+            return details;
+        }else{
+            String details = String.format(getName() + ", -$" + newNegativeBalance);
+            return details;
+        }
+
     }
 }
