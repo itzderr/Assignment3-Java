@@ -108,7 +108,6 @@ public class BankAccount {
         if (getBalance() > 0) {
             return true;
         } else {
-            balance = 0;
             return false;
         }
 
