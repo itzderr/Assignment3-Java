@@ -133,14 +133,14 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-        if(balance < 5 || amount<= 0){
+        if(getBalance() < 5 || amount<= 0){
             return false;
         }
 
-        if(balance - (amount + 5 ) <= 0) {
+        if(getBalance() - (amount + 5 ) <= 0) {
             withdraw(5);
-            other.deposit(balance);
-            withdraw(balance);
+            other.deposit(getBalance());
+            withdraw(getBalance());
             return true;
         }
         else{
