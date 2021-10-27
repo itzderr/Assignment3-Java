@@ -103,13 +103,18 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
-        double tfee=0;
-        double ftfee=0;
-        for (int i=1;i<=transactionCount;i++){
-             tfee=i*fee;
-             ftfee+=tfee;
+        double tFee = 0;
+        double ftFee = 0;
+        for (int i = 1; i <= transactionCount; i++){
+             tFee=i*fee;
+             ftFee+=tFee;
         }
-        if (balance<ftfee) {return false;} else {return true;}
+        if (balance < ftFee) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     /**
@@ -131,24 +136,23 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-       double transferfee=5;
+       double transferfee = 5;
        double noEnough;
 
-        if (this.balance<=transferfee){return false;}
+        if (this.balance<=transferfee) { return false; }
         else {
             if (this.balance >= amount + transferfee) {
                     this.balance = this.balance - amount - transferfee;
                     other.balance = other.balance + amount;
                     return true;
-                 }
-            else {
-                    noEnough=this.balance-transferfee;
-                    this.balance -= this.balance;
-                    other.balance = other.balance + noEnough;
-                 }
-                return true;
             }
-
+            else {
+                noEnough = this.balance - transferfee;
+                this.balance -= this.balance;
+                other.balance = other.balance + noEnough;
+            }
+            return true;
+        }
     }
 
     /**
@@ -165,15 +169,11 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-        String arraytoString = String.join(" ", (name));
-
+        String arrayString = String.join(" ", (name));
         DecimalFormat df   = new DecimalFormat("######0.00");
-       // df.format(balance);
-        String arrayinttoString=String.valueOf(df.format(balance));
-        String a=String.format("%s, $%s",arraytoString,arrayinttoString);
-        String aEdit=a.replace("$-","-$");
+        String arrayIntoString = String.valueOf(df.format(balance));
+        String a = String.format("%s, $%s", arrayString, arrayIntoString);
+        String aEdit = a.replace("$-", "-$");
         return aEdit;
-
-
     }
 }
