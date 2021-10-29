@@ -94,13 +94,13 @@ public class BankAccount {
      * Then the account would be deducted $10 + $20 + $30 + $40 for the four transactions, leaving
      * a final balance of $0.00. The method would return false.
      *
-     * @param fee
+     * @param
+     fee
      * @return true if there's enough balance, otherwise false
      */
     public boolean transactionFee(double fee) {
-        // TODO 2: Your code goes here.
-
-        return false;
+        double total =  (this.transactionCount * 0.5) * (this.transactionCount + 1)  * fee;
+        return this.balance - total > 0;
     }
 
     /**
@@ -121,9 +121,21 @@ public class BankAccount {
      * @return true if transferred any amount of money, otherwise false.
      */
     public boolean transfer(double amount, BankAccount other) {
-        // TODO 3: Your code goes here.
+        int fee = 5;
 
-        return false;
+        if (this.balance < fee) return false;
+
+        this.balance -= fee;
+
+        if (this.balance < amount) {
+            other.balance += this.balance;
+            this.balance = 0;
+        } else {
+            other.balance += amount;
+            this.balance -= amount;
+        }
+
+        return true;
     }
 
     /**
@@ -139,8 +151,10 @@ public class BankAccount {
      */
     @Override
     public String toString() {
-        // TODO 1: Your code goes here.
-
-        return "";
+        return String.format("%s, %s$%.2f",
+                name,
+                balance < 0 ? "-" : "",
+                Math.abs(balance)
+        );
     }
 }
