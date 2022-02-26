@@ -4,6 +4,9 @@ package ca.ciccc;
  * Assignment 3
  */
 public class BankAccount {
+
+    private static  final double TRANSFER_FEE_VALUE = 5.0;
+
     private String id;
     private String name;
     private double balance;
@@ -98,9 +101,19 @@ public class BankAccount {
      * @return true if there's enough balance, otherwise false
      */
     public boolean transactionFee(double fee) {
-        // TODO 2: Your code goes here.
+        double balanceAfterFee = balance;
 
-        return false;
+        for(int index = 1; index <= transactionCount; index++) {
+            double feeInIndex = fee * index;
+            balanceAfterFee -= feeInIndex;
+        }
+
+        if(balanceAfterFee <= 0) {
+            balance = 0.0;
+            return false;
+        }
+        balance = balanceAfterFee;
+        return true;
     }
 
     /**
@@ -121,9 +134,21 @@ public class BankAccount {
      * @return true if transferred any amount of money, otherwise false.
      */
     public boolean transfer(double amount, BankAccount other) {
-        // TODO 3: Your code goes here.
+        if(balance < 5 || amount <= 0) {
+            return false;
+        }
 
-        return false;
+        if (balance > 5) {
+            balance = balance - TRANSFER_FEE_VALUE;
+            if(balance - amount >= 0) {
+                other.deposit(amount);
+                balance = balance - amount;
+            } else {
+                other.deposit(balance);
+                balance = 0.0;
+            }
+        }
+        return true;
     }
 
     /**
@@ -139,8 +164,9 @@ public class BankAccount {
      */
     @Override
     public String toString() {
-        // TODO 1: Your code goes here.
-
-        return "";
+        if (balance < 0) {
+            return String.format("%s, -$%.2f", getName(), (getBalance() * -1));
+        }
+        return String.format("%s, $%.2f", getName(), getBalance());
     }
 }
