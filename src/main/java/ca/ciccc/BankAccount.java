@@ -99,8 +99,14 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
-
-        return false;
+        double transactionFee = 0;
+        for (int i = 0; i < transactionCount; i ++) {
+            transactionFee = transactionFee + transactionCount * fee;
+        }
+        balance = balance - transactionFee;
+        if (balance > 0){
+            return true;
+        } return false;
     }
 
     /**
@@ -122,7 +128,22 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-
+        double trasnferFee = 5;
+        if(this.balance > amount + trasnferFee) {
+            this.balance = this.balance - (amount + trasnferFee);
+            other.balance += amount;
+            return true;
+        } else if (this.balance <= amount + trasnferFee && this.balance > trasnferFee) {
+            double leftBalance = this.balance - trasnferFee;
+            amount = leftBalance;
+            this.balance -= amount;
+            other.balance += amount;
+            return true;
+        } else if (this.balance < trasnferFee || this.balance < 0) {
+            this.balance += 0;
+            other.balance += 0;
+            return false;
+        }
         return false;
     }
 
