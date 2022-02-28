@@ -161,7 +161,11 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-
-        return "";
+        String accountDetail = "";
+        if (balance < 0) {
+            accountDetail = String.format("%s, -$%.2f", getName(), (getBalance() * -1));
+            return accountDetail;
+        } accountDetail = String.format("%s, $%.2f", getName(), getBalance());
+        return accountDetail;
     }
 }
