@@ -11,4 +11,5 @@ import org.junit.runners.Suite;
         TestBankAccountTransactionFee.class,
         TestBankAccountTransfer.class
 })
-public class TestAll { }
+public class TestAll {
+}

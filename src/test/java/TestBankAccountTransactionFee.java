@@ -9,20 +9,19 @@ import java.util.Collection;
 
 @RunWith(Parameterized.class)
 public class TestBankAccountTransactionFee {
+    @Parameterized.Parameter
+    public double inputs;
+    @Parameterized.Parameter(1)
+    public boolean expected;
+
     @Parameterized.Parameters(name = "{index}: @ca.ciccc.BankAccount.transactionFee()")
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {
+        return Arrays.asList(new Object[][]{
                 {5.00, true},
                 {7.00, true},
                 {20.00, false},
         });
     }
-
-    @Parameterized.Parameter
-    public double inputs;
-
-    @Parameterized.Parameter(1)
-    public boolean expected;
 
     @Test
     public void testTransactionFee() {

@@ -8,20 +8,9 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @RunWith(Parameterized.class)
-public class TestBankAccountTransfer{
+public class TestBankAccountTransfer {
 
-    @Parameterized.Parameters(name = "{index}: @ca.ciccc.BankAccount.transfer()")
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {
-                {100, 0, 20, 20, 75, true},
-                {10, 0, 20, 5, 0, true},
-                {0, 0, 0, 0, 0, false},
-                {50, 0, 50, 45, 0, true},
-                {100, 0, 10, 10, 85, true},
-                {3, 0, 3, 0, 3, false},
-        });
-    }
-
+    private static final double DELTA = 0.001;
     @Parameterized.Parameter(0)
     public double balance1;
 
@@ -40,7 +29,17 @@ public class TestBankAccountTransfer{
     @Parameterized.Parameter(5)
     public boolean expectedReturn;
 
-    private static final double DELTA = 0.001;
+    @Parameterized.Parameters(name = "{index}: @ca.ciccc.BankAccount.transfer()")
+    public static Collection<Object[]> data() {
+        return Arrays.asList(new Object[][]{
+                {100, 0, 20, 20, 75, true},
+                {10, 0, 20, 5, 0, true},
+                {0, 0, 0, 0, 0, false},
+                {50, 0, 50, 45, 0, true},
+                {100, 0, 10, 10, 85, true},
+                {3, 0, 3, 0, 3, false},
+        });
+    }
 
     @Test
     public void testTransferReturn() {
