@@ -1,7 +1,7 @@
 package ca.ciccc;
 
 /**
- * Assignment 3
+ * Assignment 3 - Clélia Miguel
  */
 public class BankAccount {
     private String id;
@@ -43,9 +43,7 @@ public class BankAccount {
         return allowNegativeBalance;
     }
 
-    public int getTransactionCount() {
-        return transactionCount;
-    }
+    public int getTransactionCount() { return transactionCount;  }
 
     public String getTransactionText() {
         return transactionText;
@@ -100,7 +98,13 @@ public class BankAccount {
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
 
-        return false;
+        int vTransaction = getTransactionCount();
+        double vBalance = getBalance() - (fee * vTransaction);
+
+        if (vBalance > 0)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -123,7 +127,24 @@ public class BankAccount {
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
 
-        return false;
+        double vBalance = this.getBalance();
+
+        if (vBalance <= 5 || amount < 0)
+        {
+           return false;
+        }
+        else if( vBalance > 5 && vBalance < amount){
+            this.withdraw(vBalance+5.00);
+            other.deposit(vBalance-5.00);
+            return true;
+        }
+        else{
+            this.withdraw(amount+5.00);
+            other.deposit(amount);
+            return true;
+        }
+
+
     }
 
     /**
@@ -140,7 +161,15 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
+        string vbalance;
 
-        return "";
+        if (getBalance() < 0){
+            vbalance = "-$"+ getBalance();
+        }
+        else{
+            vbalance = "$"+ getBalance();
+        };
+
+        return getName() + ", " + vbalance ;
     }
 }
