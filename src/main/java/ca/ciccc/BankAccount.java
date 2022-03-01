@@ -129,7 +129,7 @@ public class BankAccount {
 
         double vBalance = this.getBalance();
 
-        if (vBalance <= 5 || amount < 0)
+        if (vBalance <= 5 || amount <= 0)
         {
            return false;
         }
@@ -161,15 +161,15 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
-        string vbalance;
+        String vbalance;
 
         if (getBalance() < 0){
-            vbalance = "-$"+ getBalance();
+            vbalance = "-$"+ String.format("%.2f",(getBalance() * -1));
         }
         else{
-            vbalance = "$"+ getBalance();
-        };
+            vbalance = "$"+ String.format("%.2f",getBalance());
+        }
 
-        return getName() + ", " + vbalance ;
+        return getName() + ", " +  vbalance ;
     }
 }
