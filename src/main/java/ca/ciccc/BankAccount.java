@@ -99,6 +99,11 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
+        double feeAmount = 0;
+        for(int i=0; i<this.getTransactionCount(); i++){
+            feeAmount += fee*(i+1);
+        }
+        if(this.getBalance() >= feeAmount) return true;
 
         return false;
     }
@@ -122,7 +127,16 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
+        double transactionFee = 5.0;
+        if(this.getBalance() >= transactionFee) {
+            this.withdraw(transactionFee);
 
+            double withdrawal = Math.min(this.getBalance(), amount);
+            this.withdraw(withdrawal);
+
+            other.deposit(withdrawal);
+            return true;
+        }
         return false;
     }
 
@@ -141,6 +155,9 @@ public class BankAccount {
     public String toString() {
         // TODO 1: Your code goes here.
 
-        return "";
+        String value = "";
+        if(this.getBalance()<0) value = "-$" + String.format("%.2f",-1*this.getBalance());
+        else value = "$" + String.format("%.2f",this.getBalance());
+        return this.getName() + ", " + value;
     }
 }
