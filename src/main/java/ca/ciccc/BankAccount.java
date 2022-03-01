@@ -128,9 +128,13 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
-        if (this.balance >= amount) {
-            this.balance -= amount;
-            other.balance += amount;
+        if (this.balance - 5.00 - amount >= 0){
+            other.deposit(amount);
+            this.balance = this.balance - amount - 5.00;
+            return true;
+        } else if (this.balance >= 5.00 && this.balance - 5.00 - amount < 0) {
+            other.deposit(this.balance - 5.00);
+            this.balance = 0;
             return true;
         }
         //withdraw(amount); other.deposit(amount);
@@ -154,7 +158,7 @@ public class BankAccount {
         String sign = "";
         String pad = "";
 
-        if(balance < 0) {
+        if (balance < 0) {
             balance =- balance;
             sign = "-";
         }
