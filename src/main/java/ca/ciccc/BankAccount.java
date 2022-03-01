@@ -1,7 +1,7 @@
 package ca.ciccc;
 
 /**
- * Assignment 3 - Clélia Miguel
+ * Assignment 3 - Clelia Miguel
  */
 public class BankAccount {
     private String id;
