@@ -4,6 +4,8 @@ package ca.ciccc;
  * Assignment 3
  */
 public class BankAccount {
+    private static final double TRANSFER_FEE = 5.00;
+
     private String id;
     private String name;
     private double balance;
@@ -99,8 +101,9 @@ public class BankAccount {
      */
     public boolean transactionFee(double fee) {
         // TODO 2: Your code goes here.
+       double feeTotal = (1 + transactionCount) * transactionCount / 2 * fee;
 
-        return false;
+        return balance - feeTotal >= 0;
     }
 
     /**
@@ -122,9 +125,21 @@ public class BankAccount {
      */
     public boolean transfer(double amount, BankAccount other) {
         // TODO 3: Your code goes here.
+        if (this.balance <= TRANSFER_FEE) {
+            return false;
+        }
+        double thisBalanceToBe = balance - amount - TRANSFER_FEE;
+        double otherBalanceToBe = other.balance + amount;
 
-        return false;
+        if (thisBalanceToBe < 0) {
+            return transfer(balance - TRANSFER_FEE, other);
+        }
+        this.balance = thisBalanceToBe;
+        other.balance = otherBalanceToBe;
+
+        return true;
     }
+
 
     /**
      * Your {@code toString()} method should return a string that contains the account's name
@@ -140,7 +155,8 @@ public class BankAccount {
     @Override
     public String toString() {
         // TODO 1: Your code goes here.
+        return String.format("%s, %s$%.2f", name, balance < 0 ? "-" : "", Math.abs(balance));
 
-        return "";
+
     }
 }
